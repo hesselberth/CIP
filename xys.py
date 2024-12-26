@@ -35,6 +35,14 @@ luni_solar = [[485868.249036, 1717915923.2178, 31.8792,  0.051635, -0.00024470],
               [450160.398036, -6962890.5431,    7.4722,  0.007702, -0.00005939]]
 
 
+# Fukushima-Williams coefficients for gamma and phi consistent with IAU2006.
+# For equinox based transforms.
+PFW_poly_5 = [[   -0.052928,   10.556378,  0.4932044, -0.00031238, -0.000002788,  0.0000000260],
+              [84381.412819,  -46.811016,  0.0511268,  0.00053289, -0.000000440, -0.0000000176]]
+
+
+PFW_poly_5 = np.array(PFW_poly_5, dtype = np.double).T
+
 # Rearrange for calculating the arguments of the IERS2006 non-polynomial part
 arg_1_5  = np.array(luni_solar, dtype = np.double).T
 arg_6_13 = np.array(planets, dtype = np.double).T
@@ -98,7 +106,7 @@ Y     = XYs06a(iersch5.Y_polynomial_5,     iersch5.Y)
 spXY2 = XYs06a(iersch5.spXY2_polynomial_5, iersch5.spXY2)
 
 
-def XYs(tjc):
+def XYs06(tjc):
     phi = Phi(tjc)
     T = np.power(tjc, powers_5)
     x = X(T, phi)
@@ -109,3 +117,6 @@ def XYs(tjc):
     result[2] = result[2] - (result[0] * result[1]) / 2  # s = spXY2 - XY/2
     return result
 
+
+def PFW06_gamma_phi(tjc):
+    return np.dot(np.power(tjc, powers_5), PFW_poly_5) * AS2RAD
