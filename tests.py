@@ -66,13 +66,13 @@ print(f"Z= {Z}")
 ref = +0.999999828106893 
 Z_err = abs(Z - ref)
 print(f"Z ERR: {Z_err:.1e} (-)\n")
-assert(Z_err < 0.1)
+assert(Z_err < 1e-12)
 
 print(f"s= {s/AS2RAD}")
 ref = -0.002571986
 s_err = abs(s/AS2RAD - ref)
 print(f"s ERR: {s_err:.1e} arcsec\n")
-assert(s_err < 0.1)
+assert(s_err < 1e-7)
 
 print("Mcio")
 mcio = Mcio(tjc)
