@@ -9,7 +9,6 @@ Created on Mon Dec 26 20:28:19 2024
 import numpy as np
 from constants import AS2RAD, UAS2RAD, PI, PI2, DEG2RAD
 from rot3d import *
-import data2 as data
 from xys import XYs06 as XYs, PFW06_gamma_phi as PFW
 
 
@@ -46,8 +45,11 @@ def ERA(UT1_2000):  # UT1 is Julian UT1 date since JD2000
     return PI2 * turns
 
 
-def R(ut1_2000, tjc):
-    return R3(ERA(ut1_2000)) @ Mcio(tjc)
+def R(ut1_2000, tjc, mcio = None):
+    if not mcio:
+        mcio = Mcio(tjc)
+    return R3(ERA(ut1_2000)) @ mcio
+
 
 # classical equinox based NPB matrix and EO
 def Mclass_EO(tjc):
@@ -89,6 +91,6 @@ def EO(tjc):
     return Mclass_EO(tjc)[1]
 
 
-def GST(UT1_2000, EO):
-        return ERA(UT1) - EO
+def GST(UT1_2000, eo):
+        return ERA(UT1_2000) - eo
 
