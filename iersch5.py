@@ -1,3 +1,11 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Mon Dec 26 23:48:17 2024
+
+@author: Marcel Hesselberth
+"""
+
 from numpy import array
 
 X = {0: (1306, array([ 1.10000000e-01, -1.20000000e-01, -1.20000000e-01,  1.20000000e-01,
